@@ -9,9 +9,6 @@ import AddPost from './pages/AddPost.jsx'
 import Home from './pages/Home.jsx'
 import { ArweaveWalletKit } from "@arweave-wallet-kit/react";
 import ArConnectStrategy from "@arweave-wallet-kit/arconnect-strategy";
-import { QueryClient, QueryClientProvider } from 'react-query';
-
-const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -50,7 +47,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-     <QueryClientProvider client={queryClient}>
     <ArweaveWalletKit
       config={{
         permissions: [
@@ -65,6 +61,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     >
       <RouterProvider router={router}/>
     </ArweaveWalletKit>
-    </QueryClientProvider>
   </React.StrictMode>
 )
