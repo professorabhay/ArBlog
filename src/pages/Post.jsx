@@ -74,9 +74,9 @@ const ViewPost = () => {
     {isFetching && <div>Fetching post...</div>}
     {post ? (
       <div style={styles.parentDiv}>
-        <div style={styles.postDiv}>
+        <div style={styles.postDiv} className="bg-[#252422]">
         <h2 style={styles.postHeading} className='text-xl
-                 font-bold font-sans text-gray-500 capitalize'>{post.Title}</h2>
+                 font-bold font-sans text-yellow-600 capitalize'>{post.Title}</h2>
         <p style={styles.postContent} className='mt-5 text-white'>{post.Author}</p>
         <p style={styles.postContent} className='mt-3 text-white'>{post.ID}</p>
         <Link to="/posts" style={styles.postLink}>

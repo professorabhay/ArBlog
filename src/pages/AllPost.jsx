@@ -56,10 +56,10 @@ function AllPosts() {
         {isFetching && <div className='text-white'>Fetching posts...</div>}
         {postList &&
           postList.map((post, index) => (
-            <div key={index} style={styles.postDiv}>
+            <div key={index} style={styles.postDiv} className="bg-[#252422]">
               <a href={`/post/${post.ID}`} style={styles.postLink}>
                 <h3 style={styles.postHeading} className='text-xl
-                 font-bold font-sans text-gray-500 capitalize'>{post.Title}</h3>
+                 font-bold font-sans text-yellow-600 capitalize'>{post.Title}</h3>
                 <p style={styles.postContent} className='mt-5 text-white'>{post.Author}</p>
                 <p style={styles.postContent} className='mt-3 text-white'>{post.ID}</p>
               </a>
