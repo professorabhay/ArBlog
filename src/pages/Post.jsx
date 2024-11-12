@@ -69,6 +69,10 @@ const ViewPost = () => {
 
   const post = postContent?.find((post) => post.ID === postId);
 
+console.log(
+  post
+)
+
   return (
     <div className='w-full py-8'>
     {isFetching && <div>Fetching post...</div>}

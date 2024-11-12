@@ -13,11 +13,7 @@ function AllPosts() {
   const navigate = useNavigate();
 
   const syncAllPosts = async () => {
-    // setIsFetching(true);
-    if (!connected) {
-      // setIsFetching(false);
-      return;
-    }
+    if (!connected) return;
 
     try {
       const result = await dryrun({
@@ -36,8 +32,6 @@ function AllPosts() {
     } catch (error) {
       console.log(error);
     }
-
-    // setIsFetching(false);
   };
 
   useEffect(() => {
@@ -49,67 +43,25 @@ function AllPosts() {
   return (
     <div className='w-full py-8'>
       <div>
-        <h1 className='text-[2rem] md:text-[2.5rem] text-center font-semibold'>All Posts</h1>
+        <h1 className='text-2xl md:text-3xl text-center font-semibold'>All Posts</h1>
       </div>
       <Container>
-      <div style={styles.parentDiv}>
-        {isFetching && <div className='text-white'>Fetching posts...</div>}
-        {postList &&
-          postList.map((post, index) => (
-            <div key={index} style={styles.postDiv} className="bg-[#252422]">
-              <a href={`/post/${post.ID}`} style={styles.postLink}>
-                <h3 style={styles.postHeading} className='text-xl
-                 font-bold font-sans text-yellow-600 capitalize'>{post.Title}</h3>
-                <p style={styles.postContent} className='mt-5 text-white'>{post.Author}</p>
-                <p style={styles.postContent} className='mt-3 text-white'>{post.ID}</p>
-              </a>
-            </div>
-          ))}
-      </div>
+        <div className="flex flex-col space-y-4 p-10 overflow-y-auto max-h-[calc(100vh-200px)] scroll-smooth scrollbar-hide">
+          {isFetching && <div className='text-white'>Fetching posts...</div>}
+          {postList &&
+            postList.map((post, index) => (
+              <div key={index} className="p-4 border border-yellow-500 rounded-lg bg-[#252422]">
+                <a href={`/post/${post.ID}`} className="no-underline text-gray-500 hover:text-yellow-600">
+                  <h3 className='text-xl font-bold font-sans text-yellow-600 capitalize'>{post.Title}</h3>
+                  <p className='mt-5 text-white'>{post.Author}</p>
+                  <p className='mt-3 text-white'>{post.ID}</p>
+                </a>
+              </div>
+            ))}
+        </div>
       </Container>
     </div>
   );
 }
 
-const styles = {
-  parentDiv: {
-    height: "calc(100vh - 72px)",
-    display: "flex",
-    flexDirection: "column",
-    padding: "40px",
-  },
-  horizontalRule: {
-    border: 0,
-    clear: "both",
-    display: "block",
-    width: "100%",
-    backgroundColor: "#ccc",
-    height: "1px",
-  },
-  postDiv: {
-    padding: "10px 20px",
-    border: "1px solid #ffbe0b",
-    borderRadius: "8px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "6px",
-    marginBottom: "10px",
-  },
-  postHeading: {
-    margin: "0px",
-    text: "bold",
-    fontSize: "30px",
-    padding: "0px",
-  },
-  postContent: {
-    padding: "0px",
-    fontSize: "14px",
-  },
-  postLink: {
-    textDecoration: "none",
-    color: "#555",
-  },
-};
-
 export default AllPosts;
-

@@ -51,8 +51,8 @@ function PostForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(createPost)} className="flex flex-wrap">
-      <div className="w-full lg:w-2/3 px-2">
+    <form onSubmit={handleSubmit(createPost)} className="flex flex-col">
+      <div className="w-full lg:w-3/3 px-2">
         {/* Title input */}
         <Controller
           name="title"
@@ -85,7 +85,7 @@ function PostForm() {
           <Button
             type="submit"
             disabled={isPosting}
-            className="bg-customYellow hover:shadow-customYellow text-white shadow-sm hover:cursor-pointer duration-200 hover:drop-shadow-2xl rounded-lg w-full"
+            className="bg-customYellow hover:shadow-customYellow text-white shadow-sm hover:cursor-pointer duration-200 hover:drop-shadow-2xl rounded-lg w-full mt-10 lg:ml-[28vw]"
           >
             Submit
           </Button>

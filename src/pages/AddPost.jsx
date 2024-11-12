@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, PostForm } from '../Components'
+import { Button, Container, PostForm } from '../Components'
 import { useEffect, useState } from "react";
 import { useActiveAddress, useConnection } from "@arweave-wallet-kit/react";
 import {
@@ -87,9 +87,14 @@ function AddPost() {
             <PostForm />
         </Container>
       ) : (
-        <button onClick={registerAuthor}>
-          Register
-        </button>
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <Button
+            onClick={registerAuthor}
+            className="my-7 md:py-2 py-1 px-5 text-white font-weight-400 bg-customYellow rounded-xl shadow-lg duration-200 hover:cursor-pointer hover:bg-white hover:text-black hover:scale-105 md:mx-2 md:my-6"
+          >
+            Register
+          </Button>
+        </div>
       )}
     </div>
   )
