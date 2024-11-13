@@ -14,12 +14,12 @@ function AddPost() {
   const processId = "qYkkKTD1-PPySlWQ_1X6z8gEV6CpGTlG-3u4d52BA9A";
   const [isFetching, setIsFetching] = useState(false);
   const [authorList, setAuthorList] = useState([]);
+  const [name, setName] = useState("");
 
   const activeAddress = useActiveAddress();
 
   const syncAllAuthors = async () => {
     if (!connected) {
-      // setIsFetching(false);
       return;
     }
 
@@ -47,7 +47,7 @@ function AddPost() {
   const registerAuthor = async () => {
     const res = await message({
       process: processId,
-      tags: [{ name: "Action", value: "Register" }],
+      tags: [{ name: "Action", value: "Register" }, { name: "Name", value: name }],
       data: "",
       signer: createDataItemSigner(window.arweaveWallet),
     });
@@ -61,7 +61,10 @@ function AddPost() {
 
     console.log("Registered successfully", registerResult);
 
-    if (registerResult[0].Messages[0].Data === "Successfully Registered.") {
+    const data = registerResult.Messages[0].Data;
+    console.log(data); // This will output 'Already Registered'
+
+    if (registerResult.Messages[0].Data === "Successfully Registered." || registerResult.Messages[0].Data === "Already Registered.") {
       syncAllAuthors();
     }
   };
@@ -88,9 +91,16 @@ function AddPost() {
         </Container>
       ) : (
         <div className="flex items-center justify-center min-h-[50vh]">
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter your username"
+            className="p-2 px-3 py-4 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200"
+          />
           <Button
             onClick={registerAuthor}
-            className="my-7 md:py-2 py-1 px-5 text-white font-weight-400 bg-customYellow rounded-xl shadow-lg duration-200 hover:cursor-pointer hover:bg-white hover:text-black hover:scale-105 md:mx-2 md:my-6"
+            className="my-7 md:py-2 py-1 px-4 text-white font-weight-400 bg-customYellow rounded-xl shadow-lg duration-200 hover:cursor-pointer hover:bg-white hover:text-black hover:scale-105 md:mx-2 md:my-6"
           >
             Register
           </Button>
