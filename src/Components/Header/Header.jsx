@@ -4,7 +4,6 @@ import { ConnectButton, useConnection } from "@arweave-wallet-kit/react";
 import { Link, NavLink } from "react-router-dom";
 import hamburgerIcon from "/icon-hamburger.svg";
 import closeIcon from "/icon-close.svg";
-import "./Header.css";
 
 function Header() {
   const [navOpen, setNavOpen] = useState(false);
@@ -28,7 +27,7 @@ function Header() {
     <header className="py-5 md:py-5 my-5 sticky top-0 z-50 px-0 md:px-10 bg-clip-padding">
       <Container>
         <nav className="flex justify-between flex-wrap items-center">
-          <div className="">
+          <div>
             <Link to="/" onClick={closeNavbar}>
               <Logo width="100px" />
             </Link>

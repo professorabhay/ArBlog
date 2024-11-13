@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useConnection } from "@arweave-wallet-kit/react";
 import { dryrun } from "@permaweb/aoconnect";
+import parse from 'html-react-parser';
 
 const ViewPost = () => {
   const { postId } = useParams();
@@ -81,7 +82,7 @@ console.log(
         <div style={styles.postDiv} className="bg-[#252422]">
         <h2 style={styles.postHeading} className='text-xl
                  font-bold font-sans text-yellow-600 capitalize'>{post.Title}</h2>
-        <p style={styles.postContent} className='mt-5 text-white'>{post.Author}</p>
+        <p style={styles.postContent} className='mt-5 text-white'>{parse(post.Body)}</p>
         <p style={styles.postContent} className='mt-3 text-white'>{post.ID}</p>
         <Link to="/posts" style={styles.postLink}>
           <button className={"mt-4 bg-customYellow text-white rounded-xl px-5 py-2 hover:bg-white hover:text-black hover:border hover:border-solid hover:border-grayBorder hover:cursor-pointer"}>Back</button>
