@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Container, PostForm } from '../Components'
 import { useEffect, useState } from "react";
+import { Loader } from "../Components";
 import { useActiveAddress, useConnection } from "@arweave-wallet-kit/react";
 import {
   createDataItemSigner,
@@ -24,6 +25,7 @@ function AddPost() {
     }
 
     try {
+      setIsFetching(true);
       const res = await dryrun({
         process: processId,
         data: "",
@@ -39,9 +41,9 @@ function AddPost() {
       setAuthorList(filteredResult[0]);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsFetching(false);
     }
-
-    // setIsFetching(false);
   };
 
   const registerAuthor = async () => {
@@ -70,22 +72,22 @@ function AddPost() {
   };
 
   useEffect(() => {
-    setIsFetching(true);
     syncAllAuthors();
     console.log("This is active address", activeAddress);
     console.log(
       "Includes author",
       authorList.some((author) => author.PID === activeAddress)
     );
-
-    setIsFetching(false);
   }, [connected]);
 
   return (
     <div className='py-8'>
       <div><h1 className=' text-[2rem] md:text-[2.5rem] text-center font-semibold' >Add Post</h1></div>
-      {isFetching && <div>Fetching posts...</div>}
-      {authorList.some((author) => author.PID === activeAddress) ? (
+      {isFetching ? (
+        <div className="flex items-center justify-center h-[calc(100vh-320px)]">
+        <Loader />
+      </div>
+      ) : authorList.some((author) => author.PID === activeAddress) ? (
         <Container>
             <PostForm />
         </Container>

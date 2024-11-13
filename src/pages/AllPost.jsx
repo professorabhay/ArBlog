@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, PostCard, Button, Loader } from "../Components";
+import { Container, Loader } from "../Components";
 import { useNavigate } from "react-router-dom";
 import { useConnection } from "@arweave-wallet-kit/react";
 import { dryrun } from "@permaweb/aoconnect";
@@ -15,6 +15,7 @@ function AllPosts() {
     if (!connected) return;
 
     try {
+      setIsFetching(true);
       const result = await dryrun({
         process: processId,
         data: "",
@@ -30,13 +31,13 @@ function AllPosts() {
       setPostList(filteredResult[0]);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsFetching(false);
     }
   };
 
   useEffect(() => {
-    setIsFetching(true);
     syncAllPosts();
-    setIsFetching(false);
   }, [connected]);
 
   const noPosts = !postList || postList.length === 0;
@@ -49,12 +50,17 @@ function AllPosts() {
           All Posts
         </h1>
       </div>
-      {noPosts ? (
-        <div className="flex items-center justify-center h-[calc(100vh-320px)] text-white text-4xl">No posts available</div>
+      {isFetching ? (
+        <div className="flex items-center justify-center h-[calc(100vh-320px)]">
+          <Loader />
+        </div>
+      ) : noPosts ? (
+        <div className="flex items-center justify-center h-[calc(100vh-320px)] text-white text-4xl">
+          No posts available
+        </div>
       ) : (
         <Container>
           <div className="flex flex-col space-y-4 p-10 overflow-y-auto max-h-[calc(100vh-200px)] scroll-smooth scrollbar-hide">
-            {isFetching && <div className="text-white">Fetching posts...</div>}
             {postList &&
               postList.map((post, index) => (
                 <div
