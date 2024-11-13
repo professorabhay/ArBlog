@@ -59,7 +59,7 @@ function Header() {
               <li className="my-4 md:my-0">
                 <ConnectButton
                   onClick={closeNavbar}
-                  className="md:ml-4 py-2 px-5 text-white button-custom rounded-xl shadow-sm hover:scale-105 duration-200 hover:cursor-pointer bg-customYellow hover:bg-white hover:text-black"
+                  accent="#ffbe0b"
                   profileModal={true}
                   showBalance={false}
                   showProfilePicture={true}
